@@ -11,4 +11,4 @@ Update UI
 curl -fsSL -o /var/lib/marzban/templates/subscription/index.html \
   https://raw.githubusercontent.com/Amelia-comel/MarsA/main/index.html
 
-marzban restart```
+marzban restart
