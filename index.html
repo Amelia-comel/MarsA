@@ -173,8 +173,8 @@
             if (progressBar) progressBar.style.width = pct + '%';
             if (usagePercent) usagePercent.textContent = pct.toFixed(1) + '%';
             if (usageText) {
-                const usedStr = "{{ user.used_traffic | bytesformat }}";
-                const limitStr = dataLimit === "∞" ? "∞" : "{{ user.data_limit | bytesformat }}";
+                const usedStr = "{{ user.used_traffic | bytesformat if user.used_traffic is not none else '0 B' }}";
+                const limitStr = dataLimit === "∞" ? "∞" : "{{ user.data_limit | bytesformat if user.data_limit is not none else '∞' }}";
                 usageText.textContent = `${usedStr} / ${limitStr}`;
             }
 
@@ -208,6 +208,7 @@
             if (osEl) osEl.textContent = detectOS();
         });
     </script>
+<base target="_blank">
 </head>
 <body class="min-h-screen antialiased">
 
