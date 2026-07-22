@@ -123,10 +123,10 @@ timedatectl set-timezone Asia/Jakarta;
 sudo bash -c "$(curl -sL https://github.com/GawrAme/Marzban-scripts/raw/master/marzban.sh)" @ install
 
 #Install Subs
-wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubusercontent.com/GawrAme/MarLing/main/index.html
+wget -N -P /var/lib/marzban/templates/subscription/  https://raw.githubusercontent.com/Amelia-comel/MarsA/main/index.html
 
 #install env
-wget -O /opt/marzban/.env "https://raw.githubusercontent.com/GawrAme/MarLing/main/env"
+wget -O /opt/marzban/.env "https://raw.githubusercontent.com/Amelia-comel/MarsA/main/env"
 
 #install Assets folder
 mkdir -p /var/lib/marzban/assets
@@ -134,20 +134,20 @@ cd
 
 #profile
 echo -e 'profile' >> /root/.profile
-wget -O /usr/bin/profile "https://raw.githubusercontent.com/GawrAme/MarLing/main/profile";
+wget -O /usr/bin/profile "https://raw.githubusercontent.com/Amelia-comel/MarsA/main/profile";
 chmod +x /usr/bin/profile
 apt install neofetch -y
-wget -O /usr/bin/cekservice "https://raw.githubusercontent.com/GawrAme/MarLing/main/cekservice.sh"
+wget -O /usr/bin/cekservice "https://raw.githubusercontent.com/Amelia-comel/MarsA/main/cekservice.sh"
 chmod +x /usr/bin/cekservice
 
 #install compose
-wget -O /opt/marzban/docker-compose.yml "https://raw.githubusercontent.com/GawrAme/MarLing/main/docker-compose.yml"
+wget -O /opt/marzban/docker-compose.yml "https://raw.githubusercontent.com/Amelia-comel/MarsA/main/docker-compose.yml"
 
 #Install VNSTAT
 apt -y install vnstat
 /etc/init.d/vnstat restart
 apt -y install libsqlite3-dev
-wget https://github.com/GawrAme/MarLing/raw/main/vnstat-2.6.tar.gz
+wget https://github.com/Amelia-comel/MarsA/raw/main/vnstat-2.6.tar.gz
 tar zxvf vnstat-2.6.tar.gz
 cd vnstat-2.6
 ./configure --prefix=/usr --sysconfdir=/etc && make && make install 
@@ -166,11 +166,182 @@ sudo apt-get install speedtest -y
 mkdir -p /var/log/nginx
 touch /var/log/nginx/access.log
 touch /var/log/nginx/error.log
-wget -O /opt/marzban/nginx.conf "https://raw.githubusercontent.com/GawrAme/MarLing/main/nginx.conf"
-wget -O /opt/marzban/default.conf "https://raw.githubusercontent.com/GawrAme/MarLing/main/vps.conf"
-wget -O /opt/marzban/xray.conf "https://raw.githubusercontent.com/GawrAme/MarLing/main/xray.conf"
+wget -O /opt/marzban/nginx.conf "https://raw.githubusercontent.com/Amelia-comel/MarsA/main/nginx.conf"
+wget -O /opt/marzban/default.conf "https://raw.githubusercontent.com/Amelia-comel/MarsA/main/vps.conf"
+wget -O /opt/marzban/xray.conf "https://raw.githubusercontent.com/Amelia-comel/MarsA/main/xray.conf"
 mkdir -p /var/www/html
-echo "<pre>Setup by AutoScript LingVPN</pre>" > /var/www/html/index.html
+cat << 'EOF' > /var/www/html/index.html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Support</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #202124;
+            color: #e8eaed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 150px;
+            border-bottom: 2px solid #5f6368;
+            margin-bottom: 50px;
+            overflow: hidden;
+        }
+
+        .dino {
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 44px;
+            height: 47px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e8eaed"><path d="M20 0h-9v2h-2v2h-2v2h-2v2h-2v2h-2v4h2v2h2v4h-2v2h4v-2h2v-4h2v4h2v2h4v-2h-2v-4h2v-2h2v-2h2v-8h-2v-2z"/></svg>');
+            background-size: cover;
+            animation: run 0.3s steps(2) infinite;
+        }
+
+        @keyframes run {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-4px); } 
+        }
+
+        .cactus {
+            position: absolute;
+            bottom: 0;
+            right: -50px;
+            width: 20px;
+            height: 40px;
+            background-color: #5f6368;
+            border-radius: 5px 5px 0 0;
+            animation: move-left 1.5s linear infinite;
+        }
+        .cactus::before, .cactus::after {
+            content: '';
+            position: absolute;
+            background-color: #5f6368;
+            width: 12px;
+            height: 20px;
+            bottom: 10px;
+            border-radius: 4px;
+        }
+        .cactus::before { left: -14px; border-radius: 4px 0 0 4px; }
+        .cactus::after { right: -14px; bottom: 15px; border-radius: 0 4px 4px 0; }
+
+        .cloud {
+            position: absolute;
+            top: 20px;
+            width: 40px;
+            height: 12px;
+            background: #5f6368;
+            border-radius: 20px;
+            animation: move-left 4s linear infinite;
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: #5f6368;
+            border-radius: 50%;
+        }
+        .cloud::before { width: 20px; height: 20px; top: -10px; left: 5px; }
+        .cloud::after { width: 15px; height: 15px; top: -5px; right: 5px; }
+
+        @keyframes move-left {
+            0% { right: -100px; }
+            100% { right: 100%; }
+        }
+
+        .ground-line {
+            position: absolute;
+            bottom: -2px;
+            width: 200%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, #202124 0, #202124 10px, #5f6368 10px, #5f6368 30px);
+            animation: scroll-ground 1s linear infinite;
+        }
+
+        @keyframes scroll-ground {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .support-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
+
+        .telegram-logo {
+            width: 38px;
+            height: 38px;
+            fill: #229ED9;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .handle {
+            background: linear-gradient(90deg, #229ED9, #e8eaed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @media (max-width: 600px) {
+            .support-container {
+                font-size: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <div class="cloud" style="animation-delay: 0s; top: 30px;"></div>
+        <div class="cloud" style="animation-delay: 2s; top: 15px; width: 30px;"></div>
+        <div class="ground-line"></div>
+        <div class="dino"></div>
+        <div class="cactus" style="animation-delay: 0s;"></div>
+        <div class="cactus" style="animation-delay: 0.7s; height: 25px; right: -150px;"></div>
+    </div>
+
+    <div class="support-container">
+        <span>Technical Support</span>
+        <svg class="telegram-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.664 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+        <span class="handle">@MediafairyCH</span>
+    </div>
+
+</body>
+</html>
+EOF
 
 #install socat
 apt install iptables -y
@@ -181,7 +352,7 @@ apt install socat cron bash-completion -y
 curl https://get.acme.sh | sh -s email=$email
 /root/.acme.sh/acme.sh --server letsencrypt --register-account -m $email --issue -d $domain --standalone -k ec-256 --debug
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /var/lib/marzban/xray.crt --keypath /var/lib/marzban/xray.key --ecc
-wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/GawrAme/MarLing/main/xray_config.json"
+wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/Amelia-comel/MarsA/main/xray_config.json"
 
 #install firewall
 apt install ufw -y
@@ -196,7 +367,7 @@ sudo ufw allow 1080/udp
 yes | sudo ufw enable
 
 #install database
-wget -O /var/lib/marzban/db.sqlite3 "https://github.com/GawrAme/MarLing/raw/main/db.sqlite3"
+wget -O /var/lib/marzban/db.sqlite3 "https://github.com/Amelia-comel/MarsA/raw/main/db.sqlite3"
 
 #install WARP Proxy
 wget -O /root/warp "https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh"
@@ -233,8 +404,7 @@ username  : ${userpanel}
 password  : ${passpanel}
 -=================================-
 Jangan lupa join Channel & Grup Telegram saya juga di
-Telegram Channel: https://t.me/LingVPN
-Telegram Group: https://t.me/LingVPN_Group
+Telegram Channel: https://t.me/MediafairyCH
 -=================================-" > /root/log-install.txt
 profile
 colorized_echo green "Script telah berhasil di install"
