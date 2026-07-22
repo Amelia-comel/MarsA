@@ -178,15 +178,10 @@ cat << 'EOF' > /var/www/html/index.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Technical Support</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             background-color: #202124;
-            color: #e8eaed;
+            color: #ffffff; /* Semua text berwarna putih */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -194,15 +189,32 @@ cat << 'EOF' > /var/www/html/index.html
             justify-content: center;
             height: 100vh;
             overflow: hidden;
+            text-align: center;
+            cursor: pointer; /* Indikator bisa ditap di manapun */
+            user-select: none;
         }
         
+        /* Teks Offline ala Chrome */
+        .error-code {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .error-desc {
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 40px;
+        }
+
+        /* Container Animasi Dino */
         .game-container {
             position: relative;
             width: 100%;
             max-width: 600px;
             height: 150px;
             border-bottom: 2px solid #5f6368;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             overflow: hidden;
         }
 
@@ -212,14 +224,24 @@ cat << 'EOF' > /var/www/html/index.html
             left: 10%;
             width: 44px;
             height: 47px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e8eaed"><path d="M20 0h-9v2h-2v2h-2v2h-2v2h-2v2h-2v4h2v2h2v4h-2v2h4v-2h2v-4h2v4h2v2h4v-2h-2v-4h2v-2h2v-2h2v-8h-2v-2z"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M20 0h-9v2h-2v2h-2v2h-2v2h-2v2h-2v4h2v2h2v4h-2v2h4v-2h2v-4h2v4h2v2h4v-2h-2v-4h2v-2h2v-2h2v-8h-2v-2z"/></svg>');
             background-size: cover;
             animation: run 0.3s steps(2) infinite;
+        }
+
+        /* Animasi Lompat saat Layar Ditap */
+        .dino.jump {
+            animation: jump-anim 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         @keyframes run {
             0% { transform: translateY(0); }
             50% { transform: translateY(-4px); } 
+        }
+
+        @keyframes jump-anim {
+            0%, 100% { bottom: 0; }
+            50% { bottom: 70px; }
         }
 
         .cactus {
@@ -228,14 +250,14 @@ cat << 'EOF' > /var/www/html/index.html
             right: -50px;
             width: 20px;
             height: 40px;
-            background-color: #5f6368;
+            background-color: #ffffff;
             border-radius: 5px 5px 0 0;
             animation: move-left 1.5s linear infinite;
         }
         .cactus::before, .cactus::after {
             content: '';
             position: absolute;
-            background-color: #5f6368;
+            background-color: #ffffff;
             width: 12px;
             height: 20px;
             bottom: 10px;
@@ -249,14 +271,15 @@ cat << 'EOF' > /var/www/html/index.html
             top: 20px;
             width: 40px;
             height: 12px;
-            background: #5f6368;
+            background: #ffffff;
             border-radius: 20px;
             animation: move-left 4s linear infinite;
+            opacity: 0.5;
         }
         .cloud::before, .cloud::after {
             content: '';
             position: absolute;
-            background: #5f6368;
+            background: #ffffff;
             border-radius: 50%;
         }
         .cloud::before { width: 20px; height: 20px; top: -10px; left: 5px; }
@@ -272,7 +295,7 @@ cat << 'EOF' > /var/www/html/index.html
             bottom: -2px;
             width: 200%;
             height: 2px;
-            background: repeating-linear-gradient(90deg, #202124 0, #202124 10px, #5f6368 10px, #5f6368 30px);
+            background: repeating-linear-gradient(90deg, #202124 0, #202124 10px, #ffffff 10px, #ffffff 30px);
             animation: scroll-ground 1s linear infinite;
         }
 
@@ -281,64 +304,80 @@ cat << 'EOF' > /var/www/html/index.html
             100% { transform: translateX(-50%); }
         }
 
+        /* Tombol Technical Support */
         .support-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
-            font-size: 26px;
+            gap: 10px;
+            font-size: 14px; /* Ukuran font diperkecil */
             font-weight: bold;
             letter-spacing: 0.5px;
             z-index: 10;
         }
 
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         .telegram-logo {
-            width: 38px;
-            height: 38px;
-            fill: #229ED9;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .handle {
-            background: linear-gradient(90deg, #229ED9, #e8eaed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        @media (max-width: 600px) {
-            .support-container {
-                font-size: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-                text-align: center;
-            }
+            width: 20px;
+            height: 20px;
+            fill: #ffffff; /* Logo berwarna putih mengikuti font */
         }
     </style>
 </head>
-<body>
+<body onclick="makeJump()">
 
+    <!-- Teks Offline -->
+    <div class="error-code">ERR_INTERNET_DISCONNECTED</div>
+    <div class="error-desc">Check your network connection.</div>
+
+    <!-- Animasi Dino -->
     <div class="game-container">
         <div class="cloud" style="animation-delay: 0s; top: 30px;"></div>
         <div class="cloud" style="animation-delay: 2s; top: 15px; width: 30px;"></div>
         <div class="ground-line"></div>
-        <div class="dino"></div>
+        <div class="dino" id="dinoPlayer"></div>
         <div class="cactus" style="animation-delay: 0s;"></div>
         <div class="cactus" style="animation-delay: 0.7s; height: 25px; right: -150px;"></div>
     </div>
 
+    <!-- Teks dan Tombol Telegram (Bisa Diklik) -->
     <div class="support-container">
         <span>Technical Support</span>
-        <svg class="telegram-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.664 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-        </svg>
-        <span class="handle">@MediafairyCH</span>
+        <a href="https://t.me/MediafairyCH" target="_blank" class="contact-link">
+            <svg class="telegram-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.664 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+            <span class="handle">@dapur umkm</span>
+        </a>
     </div>
 
+    <!-- Script JavaScript untuk Fungsi Lompat -->
+    <script>
+        function makeJump() {
+            var dino = document.getElementById("dinoPlayer");
+            if (dino.classList != "jump") {
+                dino.classList.add("jump");
+                setTimeout(function() {
+                    dino.classList.remove("jump");
+                }, 500);
+            }
+        }
+    </script>
 </body>
 </html>
 EOF
