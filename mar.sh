@@ -181,7 +181,7 @@ cat << 'EOF' > /var/www/html/index.html
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             background-color: #202124;
-            color: #ffffff; /* Semua text berwarna putih */
+            color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -190,13 +190,14 @@ cat << 'EOF' > /var/www/html/index.html
             height: 100vh;
             overflow: hidden;
             text-align: center;
-            cursor: pointer; /* Indikator bisa ditap di manapun */
+            cursor: pointer;
             user-select: none;
+            -webkit-tap-highlight-color: transparent; /* Mencegah layar kedip putih saat ditap di HP */
         }
         
         /* Teks Offline ala Chrome */
         .error-code {
-            font-size: 24px;
+            font-size: 18px; /* Ukuran diperkecil */
             font-weight: bold;
             margin-bottom: 10px;
             letter-spacing: 1px;
@@ -310,7 +311,7 @@ cat << 'EOF' > /var/www/html/index.html
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            font-size: 14px; /* Ukuran font diperkecil */
+            font-size: 14px;
             font-weight: bold;
             letter-spacing: 0.5px;
             z-index: 10;
@@ -326,6 +327,8 @@ cat << 'EOF' > /var/www/html/index.html
             padding: 8px 15px;
             border-radius: 20px;
             transition: background 0.3s;
+            -webkit-tap-highlight-color: transparent; /* Mencegah layar kedip di tombol link */
+            outline: none;
         }
 
         .contact-link:hover {
@@ -335,7 +338,7 @@ cat << 'EOF' > /var/www/html/index.html
         .telegram-logo {
             width: 20px;
             height: 20px;
-            fill: #ffffff; /* Logo berwarna putih mengikuti font */
+            fill: #ffffff;
         }
     </style>
 </head>
@@ -358,11 +361,11 @@ cat << 'EOF' > /var/www/html/index.html
     <!-- Teks dan Tombol Telegram (Bisa Diklik) -->
     <div class="support-container">
         <span>Technical Support</span>
-        <a href="https://t.me/MediafairyCH" target="_blank" class="contact-link">
+        <a href="https://t.me/MediafairyCH" target="_blank" class="contact-link" onclick="event.stopPropagation();">
             <svg class="telegram-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.664 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
             </svg>
-            <span class="handle">@dapur umkm</span>
+            <span class="handle">@MediafairyCH</span>
         </a>
     </div>
 
